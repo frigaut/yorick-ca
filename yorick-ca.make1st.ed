@@ -1,0 +1,7 @@
+g+^PKG_DEPLIBS=+s++PKG_DEPLIBS=-L$(EPICS)/base/lib/$(EPICS_HOST_ARCH) -lca+g
+g+^PKG_CFLAGS=+s++PKG_CFLAGS=-Wall -I$(EPICS)/base/include -I$(EPICS)/base/include/os/$(HOST_ARCH)+g
+g+^PKG_LDFLAGS=+s++PKG_LDFLAGS=-Wl,--rpath=$(EPICS)/base/lib/$(EPICS_HOST_ARCH)+g
+g+^PKG_I_START=+s++PKG_I_START=ca_start.i+g
+.
+w
+q

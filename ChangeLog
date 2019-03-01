@@ -1,0 +1,41 @@
+2009-03-20  Matthieu Bec  <mbec@gemini.edu>
+	* code base from yorick-ycatools: adds new feature, abandon others, fix few
+   issues.
+   
+   * new:
+      ca_timeout......................... global (double), get/set pend i/o default timeout
+      ca_debug........................... global (int), get/set debug level output to stderr [0..4]
+      ca_get_errmsg.......................get last descriptive epics error message
+      ca_release......................... unregister a channel previously registered with camonitor or caget/caput(keepalive=1)
+      ca_report.......................... print misc info about yorick-ca on stderr
+      ca_set_debug........................procedure to set ca_debug (circumvent scope issue)
+      ca_set_timeout......................procedure to set ca_timeout (circumvent scope issue)
+   
+   * fixes:
+      channel access initialized non preemptive
+      misc memory leaks
+      string channels where nElems>1
+
+   * camonitor event handler keeps a copy of monitored data. Within a callback, a caget will
+   get you the local copy as prefered behaviour.
+      
+   * caput/caget do not register with the connection manager, so each request will establish
+   the circuitry, execute the put/get and cleanup. Both commands have a new keyword option
+   keepalive=1|0, setting it to 1 is equivalent to the old implementation in ycatools. By
+   default keepalive=0
+      
+ !!! COMPATIBILITY WITH YCATOOLS !!!
+   
+   removed:
+      caput/caget verbose= ............... obsolete
+      caget type=......................... only support native type
+         NB: for caput, type= is still a valid option
+         NB: for caget, enum_type are returned as string
+      cadebug............................. obsolete: see ca_report
+      ca_pend_io.......................... obsolete
+      ca_pend_event....................... obsolete
+      ca_poll............................. obsolete
+      reset_epics_error................... obsolete
+      epics_error......................... obsolete: see ca_get_errmsg
+      ca_set_timeout...................... obsolete: see ca_timeout
+      
